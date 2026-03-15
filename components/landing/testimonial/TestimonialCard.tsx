@@ -31,7 +31,6 @@ export const TestimonialCard = ({
           : "md:col-span-2"
       }`}
     >
-      {/* Inner Card */}
       <div className="bg-black rounded-2xl p-6 h-full border border-transparent group-hover:border-neutral-700 transition-all duration-300">
         <StarRating />
 
@@ -54,8 +53,6 @@ export const TestimonialCard = ({
 
           <div>
             <h3 className="text-white text-sm font-medium">{name}</h3>
-
-            {/* FIXED CONTRAST */}
             <p className="text-neutral-400 text-sm">{role}</p>
           </div>
         </div>

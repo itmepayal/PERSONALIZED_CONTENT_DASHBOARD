@@ -1,6 +1,14 @@
+import { motion } from "framer-motion";
+
 export const BrandLogos = () => {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20 mx-auto mt-20">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
+      className="flex flex-wrap items-center justify-center gap-10 md:gap-20 mx-auto mt-20"
+    >
       <svg
         viewBox="0 0 101 29"
         fill="none"
@@ -96,6 +104,6 @@ export const BrandLogos = () => {
           fillOpacity="0.4"
         />
       </svg>
-    </div>
+    </motion.div>
   );
 };

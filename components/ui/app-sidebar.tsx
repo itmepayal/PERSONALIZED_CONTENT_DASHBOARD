@@ -1,11 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useUser } from "@clerk/nextjs";
 
 import { NavDocuments } from "@/components/ui/nav-documents";
 import { NavMain } from "@/components/ui/nav-main";
 import { NavSecondary } from "@/components/ui/nav-secondary";
 import { NavUser } from "@/components/ui/nav-user";
+
 import {
   Sidebar,
   SidebarContent,
@@ -15,165 +17,121 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+
 import {
   LayoutDashboardIcon,
-  ListIcon,
-  ChartBarIcon,
-  FolderIcon,
-  UsersIcon,
-  CameraIcon,
-  FileTextIcon,
-  Settings2Icon,
-  CircleHelpIcon,
+  TrendingUpIcon,
+  HeartIcon,
+  NewspaperIcon,
+  FilmIcon,
+  MusicIcon,
   SearchIcon,
-  DatabaseIcon,
-  FileChartColumnIcon,
-  FileIcon,
+  SettingsIcon,
+  CircleHelpIcon,
+  BookmarkIcon,
   CommandIcon,
 } from "lucide-react";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: <LayoutDashboardIcon />,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: <ListIcon />,
+      title: "Personalized Feed",
+      url: "/feed",
+      icon: <NewspaperIcon />,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: <ChartBarIcon />,
+      title: "Trending",
+      url: "/trending",
+      icon: <TrendingUpIcon />,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: <FolderIcon />,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: <UsersIcon />,
+      title: "Favorites",
+      url: "/favorites",
+      icon: <HeartIcon />,
     },
   ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: <CameraIcon />,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: <FileTextIcon />,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: <FileTextIcon />,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: <Settings2Icon />,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: <CircleHelpIcon />,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: <SearchIcon />,
-    },
-  ],
+
   documents: [
     {
-      name: "Data Library",
-      url: "#",
-      icon: <DatabaseIcon />,
+      name: "News",
+      url: "/news",
+      icon: <NewspaperIcon />,
     },
     {
-      name: "Reports",
-      url: "#",
-      icon: <FileChartColumnIcon />,
+      name: "Movies",
+      url: "/movies",
+      icon: <FilmIcon />,
     },
     {
-      name: "Word Assistant",
-      url: "#",
-      icon: <FileIcon />,
+      name: "Music",
+      url: "/music",
+      icon: <MusicIcon />,
+    },
+    {
+      name: "Saved Content",
+      url: "/saved",
+      icon: <BookmarkIcon />,
+    },
+  ],
+
+  navSecondary: [
+    {
+      title: "Search",
+      url: "/search",
+      icon: <SearchIcon />,
+    },
+    {
+      title: "Preferences",
+      url: "/preferences",
+      icon: <SettingsIcon />,
+    },
+    {
+      title: "Help",
+      url: "/help",
+      icon: <CircleHelpIcon />,
     },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useUser();
+
+  const userData = {
+    name: user?.fullName || "User",
+    email: user?.primaryEmailAddress?.emailAddress || "",
+    avatar: user?.imageUrl || "",
+  };
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
-              <a href="#">
-                <CommandIcon className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+            <SidebarMenuButton asChild>
+              <a href="/dashboard">
+                <CommandIcon className="size-5" />
+                <span className="text-base font-semibold">
+                  Content Dashboard
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
     </Sidebar>
   );

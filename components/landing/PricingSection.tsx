@@ -1,5 +1,8 @@
+"use client";
+
 import { Heading } from "../common/Heading";
 import { PricingCard } from "@/components/landing/price/PricingCard";
+import { motion } from "framer-motion";
 
 export const PricingSection = () => {
   const pricingPlans = [
@@ -59,11 +62,33 @@ export const PricingSection = () => {
           description="Get access to components, templates and updates. No subscriptions. No surprises."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15 } }, // Stagger the cards
+          }}
+        >
           {pricingPlans.map((plan) => (
-            <PricingCard key={plan.id} {...plan} />
+            <motion.div
+              key={plan.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.6, ease: "easeOut" },
+                },
+              }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <PricingCard {...plan} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

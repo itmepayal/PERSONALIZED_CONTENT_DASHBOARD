@@ -9,16 +9,13 @@ import { FooterSection } from "@/components/landing/FooterSection";
 
 export default function LandingSection() {
   return (
-    <>
+    <main>
       <HomeSection />
       <AboutSection />
       <CTASection />
       <TestimonialSection />
       <PricingSection />
       <FooterSection />
-      {/* 
-      <PricingSection />
-      <FooterSection /> */}
-    </>
+    </main>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   HiLightningBolt,
   HiColorSwatch,
@@ -6,7 +8,7 @@ import {
   HiCube,
   HiSparkles,
 } from "react-icons/hi";
-
+import { motion } from "framer-motion";
 import { Heading } from "@/components/common/Heading";
 import { AboutCard } from "@/components/landing/about/AboutCard";
 
@@ -51,18 +53,38 @@ export const AboutSection = () => {
         description="A visual collection of our most recent works — each piece crafted with intention, emotion, and style."
       />
 
-      <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
+      <motion.div
+        className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.15 } },
+        }}
+      >
         <div className="absolute w-150 h-150 bg-purple-600/20 blur-[200px] rounded-full left-1/2 -translate-x-1/2 -top-40 -z-10"></div>
 
         {features.map((feature, index) => (
-          <AboutCard
+          <motion.div
             key={index}
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.desc}
-          />
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, ease: "easeOut" },
+              },
+            }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <AboutCard
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.desc}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
