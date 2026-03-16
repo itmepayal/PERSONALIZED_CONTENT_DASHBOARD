@@ -1,6 +1,6 @@
 "use client";
 
-import { Heading } from "../common/Heading";
+import { Heading } from "../common/header";
 import { PricingCard } from "@/components/landing/price/PricingCard";
 import { motion } from "framer-motion";
 

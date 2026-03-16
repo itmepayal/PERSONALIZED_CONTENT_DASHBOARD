@@ -1,4 +1,4 @@
-import { Heading } from "../common/Heading";
+import { Heading } from "../common/header";
 import { TestimonialCard } from "./testimonial/TestimonialCard";
 
 export const TestimonialSection = () => {

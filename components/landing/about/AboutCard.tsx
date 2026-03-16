@@ -16,7 +16,7 @@ export const AboutCard = ({
 }: AboutCardProps) => {
   return (
     <motion.div
-      className="group relative rounded-xl p-0.5 bg-linear-to-br from-[#301469] via-[#4f46e5] to-[#9333ea]"
+      className="group relative rounded-xl h-full p-0.5 bg-linear-to-br from-[#301469] via-[#4f46e5] to-[#9333ea]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}

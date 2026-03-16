@@ -6,6 +6,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import ReduxProvider from "@/providers/redux-provider";
+import PreferencesProvider from "@/providers/preferences-provider";
 
 const poppins = Poppins({
   variable: "--font-sans",
@@ -42,7 +44,9 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
-              {children}
+              <ReduxProvider>
+                <PreferencesProvider>{children}</PreferencesProvider>
+              </ReduxProvider>
               <Toaster />
             </TooltipProvider>
           </ThemeProvider>

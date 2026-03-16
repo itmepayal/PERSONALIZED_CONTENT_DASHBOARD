@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 
-import { NavDocuments } from "@/components/ui/nav-documents";
 import { NavMain } from "@/components/ui/nav-main";
 import { NavSecondary } from "@/components/ui/nav-secondary";
 import { NavUser } from "@/components/ui/nav-user";
@@ -20,86 +20,54 @@ import {
 
 import {
   LayoutDashboardIcon,
-  TrendingUpIcon,
   HeartIcon,
-  NewspaperIcon,
-  FilmIcon,
-  MusicIcon,
-  SearchIcon,
   SettingsIcon,
-  CircleHelpIcon,
-  BookmarkIcon,
   CommandIcon,
+  TrendingUpIcon,
+  RadioIcon,
 } from "lucide-react";
 
-const data = {
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: <LayoutDashboardIcon />,
-    },
-    {
-      title: "Personalized Feed",
-      url: "/feed",
-      icon: <NewspaperIcon />,
-    },
-    {
-      title: "Trending",
-      url: "/trending",
-      icon: <TrendingUpIcon />,
-    },
-    {
-      title: "Favorites",
-      url: "/favorites",
-      icon: <HeartIcon />,
-    },
-  ],
-
-  documents: [
-    {
-      name: "News",
-      url: "/news",
-      icon: <NewspaperIcon />,
-    },
-    {
-      name: "Movies",
-      url: "/movies",
-      icon: <FilmIcon />,
-    },
-    {
-      name: "Music",
-      url: "/music",
-      icon: <MusicIcon />,
-    },
-    {
-      name: "Saved Content",
-      url: "/saved",
-      icon: <BookmarkIcon />,
-    },
-  ],
-
-  navSecondary: [
-    {
-      title: "Search",
-      url: "/search",
-      icon: <SearchIcon />,
-    },
-    {
-      title: "Preferences",
-      url: "/preferences",
-      icon: <SettingsIcon />,
-    },
-    {
-      title: "Help",
-      url: "/help",
-      icon: <CircleHelpIcon />,
-    },
-  ],
+type NavItem = {
+  title: string;
+  url: string;
+  icon: React.ReactNode;
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useUser();
+const navMain: NavItem[] = [
+  {
+    title: "Feed",
+    url: "/dashboard",
+    icon: <LayoutDashboardIcon className="size-4" />,
+  },
+  {
+    title: "Trending",
+    url: "/dashboard/trending",
+    icon: <TrendingUpIcon className="size-4" />,
+  },
+  {
+    title: "Favorites",
+    url: "/dashboard/favorites",
+    icon: <HeartIcon className="size-4" />,
+  },
+  {
+    title: "Live",
+    url: "/dashboard/live",
+    icon: <RadioIcon className="size-4" />,
+  },
+];
+
+const navSecondary: NavItem[] = [
+  {
+    title: "Preferences",
+    url: "/dashboard/settings/preferences",
+    icon: <SettingsIcon className="size-4" />,
+  },
+];
+
+export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
+  const { user, isLoaded } = useUser();
+
+  if (!isLoaded) return null;
 
   const userData = {
     name: user?.fullName || "User",
@@ -109,27 +77,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
+      {/* HEADER */}
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <a href="/dashboard">
+              <Link href="/dashboard" className="flex items-center gap-2">
                 <CommandIcon className="size-5" />
                 <span className="text-base font-semibold">
                   Content Dashboard
                 </span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
+      {/* MAIN NAV */}
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={navMain} />
+        <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
 
+      {/* USER */}
       <SidebarFooter>
         <NavUser user={userData} />
       </SidebarFooter>

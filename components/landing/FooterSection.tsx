@@ -1,4 +1,4 @@
-import { Logo } from "@/components/common/Logo";
+import { Logo } from "@/components/common/logo";
 import { FooterNewsletter } from "@/components/landing/footer/FooterNewsletter";
 import { FooterLinks } from "@/components/landing/footer/FooterLinks";
 import { FooterBottom } from "@/components/landing/footer/FooterBottom";

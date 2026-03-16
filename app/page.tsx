@@ -1,4 +1,4 @@
-import LandingSection from "@/sections/LandingSection";
+import LandingSection from "@/sections/landing-section";
 
 const Home = () => {
   return <LandingSection />;

@@ -9,7 +9,7 @@ import {
   HiSparkles,
 } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { Heading } from "@/components/common/Heading";
+import { Heading } from "@/components/common/header";
 import { AboutCard } from "@/components/landing/about/AboutCard";
 
 const features = [

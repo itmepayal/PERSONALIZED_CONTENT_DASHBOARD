@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 
 import { IconButton } from "@/components/landing/home/IconButton";
-import { Logo } from "@/components/common/Logo";
+import { Logo } from "@/components/common/logo";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
