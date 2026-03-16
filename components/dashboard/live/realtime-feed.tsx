@@ -18,8 +18,6 @@ export default function RealtimeFeed() {
   useEffect(() => {
     const eventSource = new EventSource("/api/realtime");
 
-    console.log("Connecting to SSE...");
-
     eventSource.onopen = () => {
       console.log("SSE connected");
     };
@@ -28,7 +26,11 @@ export default function RealtimeFeed() {
       try {
         const articles = JSON.parse(event.data);
 
-        if (!Array.isArray(articles)) return;
+        if (!Array.isArray(articles)) {
+          setCurrentNews([]);
+          setLoading(false);
+          return;
+        }
 
         setCurrentNews(articles);
         setLoading(false);
@@ -48,13 +50,14 @@ export default function RealtimeFeed() {
         });
       } catch (err) {
         console.error("Invalid SSE data", err);
+        setLoading(false);
       }
     };
 
-    eventSource.onerror = (err) => {
-      console.error("SSE error", err);
-      eventSource.close();
+    eventSource.onerror = () => {
+      setCurrentNews([]);
       setLoading(false);
+      eventSource.close();
     };
 
     return () => {
@@ -64,21 +67,18 @@ export default function RealtimeFeed() {
 
   return (
     <div className="flex flex-col gap-12 p-6">
-      {/* Page title */}
       <PageTitle title="📡 Live News Feed" />
 
-      {/* Empty state */}
       {!loading && currentNews.length === 0 && (
         <Card>
           <CardDescription>
             <p className="text-muted-foreground text-center py-10 text-lg capitalize">
-              No live news available right now.
+              No live news available right now
             </p>
           </CardDescription>
         </Card>
       )}
 
-      {/* Live News Section */}
       <ContentSection title="📰 Latest Live News">
         <ContentGrid items={currentNews} loading={loading} skeletonCount={4} />
       </ContentSection>

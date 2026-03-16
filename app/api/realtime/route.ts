@@ -16,22 +16,15 @@ export async function GET() {
             `https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=5&apiKey=${env.NEWS_API_KEY}`
           );
 
-          const articles = res.data.articles;
+          const articles = res.data.articles || [];
 
-          if (!articles || articles.length === 0) return;
-
-          // ✅ send ALL articles in one message
           controller.enqueue(
             encoder.encode(`data: ${JSON.stringify(articles)}\n\n`)
           );
         } catch (err) {
           console.error("SSE error:", err);
 
-          controller.enqueue(
-            encoder.encode(
-              `data: ${JSON.stringify({ error: "API failed" })}\n\n`
-            )
-          );
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify([])}\n\n`));
         }
       };
 
@@ -47,7 +40,7 @@ export async function GET() {
   return new Response(stream, {
     headers: {
       "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache, no-transform",
+      "Cache-Control": "no-cache",
       Connection: "keep-alive",
     },
   });
