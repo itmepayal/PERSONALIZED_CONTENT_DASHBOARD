@@ -38,7 +38,7 @@ export default function RealtimeFeed() {
         articles.forEach((data: any) => {
           dispatch(
             addRealtimeNews({
-              id: data.url || Date.now(),
+              id: data.url ?? `${data.title}-${data.publishedAt}`,
               title: data.title,
               description: data.description,
               url: data.url,
