@@ -1,6 +1,6 @@
 # 🚀 Personalized Content Dashboard
 
-A **modern Personalized Content Dashboard** built with **Next.js, TypeScript, and Redux Toolkit** that aggregates content from multiple sources into a **dynamic and customizable user interface**.
+A **modern Personalized Content Dashboard** built with **Next.js, TypeScript, Redux Toolkit, and Tailwind CSS** that aggregates content from multiple sources into a **dynamic and customizable interface**.
 
 Users can explore **news, recommendations, and social posts**, interact with content, save favorites, and receive **real-time updates** in a responsive and engaging dashboard.
 
@@ -8,7 +8,7 @@ Users can explore **news, recommendations, and social posts**, interact with con
 
 # 🌐 Live Demo
 
-🔗 https://personalized-content-dashboard-818u.vercel.app
+🔗 [https://personalized-content-dashboard-818u.vercel.app](https://personalized-content-dashboard-818u.vercel.app)
 
 ---
 
@@ -16,11 +16,14 @@ Users can explore **news, recommendations, and social posts**, interact with con
 
 ### 🔥 Core Features
 
-- Personalized content feed
-- Real-time updates using **Server-Sent Events (SSE)**
+- Personalized content feed: news, movies/music, and social posts
+- Real-time feed updates using **Server-Sent Events (SSE)**
+- User authentication with **NextAuth.js** (GitHub login)
+- User profile customization (avatar, username, preferences)
 - Favorite / bookmark content
-- External article linking
-- Responsive dashboard layout
+- Search functionality with **debounced input**
+- Infinite scroll / pagination for large datasets
+- Responsive dashboard layout with sidebar and top header
 - Dynamic category filtering
 
 ### 🎨 UI & UX
@@ -28,13 +31,15 @@ Users can explore **news, recommendations, and social posts**, interact with con
 - Smooth animations using **Framer Motion**
 - Modern UI with **Tailwind CSS**
 - Mobile responsive design
-- Interactive cards and hover effects
+- Interactive content cards with hover effects
+- Drag-and-drop reordering of content
+- Dark mode toggle with persistent preference
 
-### ⚡ Performance
+### ⚡ Performance & Optimization
 
-- Optimized images
-- Lazy loading
-- Lighthouse optimized
+- Lazy loading of content and images
+- Optimized API calls using Redux Toolkit + RTK Query
+- Lighthouse-optimized scores for performance and accessibility
 
 ---
 
@@ -44,17 +49,9 @@ Users can explore **news, recommendations, and social posts**, interact with con
 
 ![Landing Page](public/images/landing.png)
 
-### Landing Page (Unit Testing and Integration Testing)
-
-![Landing Page](public/images/landing_testing.png)
-
 ### Dashboard
 
 ![Dashboard](public/images/dashboard.png)
-
-### Dashboard (Unit Testing and Integration Testing)
-
-![Landing Page](public/images/landing_testing.png)
 
 ---
 
@@ -71,16 +68,24 @@ Users can explore **news, recommendations, and social posts**, interact with con
 ### State Management
 
 - Redux Toolkit
+- Redux Persist
 
 ### Data & APIs
 
-- REST APIs
-- Server-Sent Events (SSE)
+- NewsAPI for news
+- TMDB / Spotify API for recommendations
+- Mock/real Social API for posts
+- Server-Sent Events (SSE) for real-time updates
+
+### Authentication
+
+- NextAuth.js (GitHub login)
+- User profile customization
 
 ### Testing
 
-- Jest
-- React Testing Library
+- Jest + React Testing Library (unit & integration tests)
+- Playwright / Cypress (E2E testing)
 
 ### Deployment
 
@@ -90,118 +95,8 @@ Users can explore **news, recommendations, and social posts**, interact with con
 
 # ⚙️ Installation
 
-## 1️⃣ Clone the Repository
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/personalized-content-dashboard.git
+git clone https://github.com/itmepayal/personalized-content-dashboard.git
 ```
-
-## 2️⃣ Navigate to Project Folder
-
-```bash
-cd personalized-content-dashboard
-```
-
-## 3️⃣ Install Dependencies
-
-```bash
-npm install
-```
-
-## 4️⃣ Run Development Server
-
-```bash
-npm run dev
-```
-
-Open your browser and go to:
-
-```
-http://localhost:3000
-```
-
----
-
-# 🔐 Environment Variables
-
-Create a `.env.local` file in the root directory.
-
-```
-GITHUB_CLIENT_ID=your_client_id
-GITHUB_CLIENT_SECRET=your_client_secret
-CLIENT_URL=http://localhost:3000
-```
-
----
-
-# 🧪 Running Tests
-
-Run Jest tests:
-
-```bash
-npm run test
-```
-
----
-
-# 📊 Performance
-
-Lighthouse Report:
-
-| Metric         | Score |
-| -------------- | ----- |
-| Performance    | 97    |
-| Accessibility  | 99    |
-| Best Practices | 90    |
-| SEO            | 100   |
-
----
-
-# 🔮 Future Improvements
-
-- User authentication
-- AI-powered content recommendations
-- Drag-and-drop widgets
-- Dark mode customization
-- Content personalization algorithms
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a new branch
-
-```
-git checkout -b feature-name
-```
-
-3. Commit your changes
-
-```
-git commit -m "Add new feature"
-```
-
-4. Push to your branch
-
-```
-git push origin feature-name
-```
-
-5. Create a Pull Request
-
----
-
-# 📄 License
-
-This project is licensed under the **MIT License**.
-
----
-
-# 👨‍💻 Author
-
-Developed by **Payal Yadav**
-
-If you like this project, consider giving it a ⭐ on GitHub!
