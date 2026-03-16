@@ -18,7 +18,7 @@ export interface ContentItem {
   publishedAt?: string;
 }
 
-interface ContentState {
+export interface ContentState {
   news: ContentItem[];
   movies: ContentItem[];
   trendingNews: ContentItem[];

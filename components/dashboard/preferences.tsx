@@ -32,7 +32,7 @@ export default function Preferences() {
     if (selected.includes(cat)) {
       dispatch(setCategories([]));
     } else {
-      dispatch(setCategories([cat])); // only one allowed
+      dispatch(setCategories([cat]));
     }
   };
 

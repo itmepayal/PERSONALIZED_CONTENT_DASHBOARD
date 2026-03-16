@@ -5,7 +5,7 @@ import { UserIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 
-import { IconButton } from "@/components/landing/home/IconButton";
+import { IconButton } from "@/components/landing/home/icon-button";
 import { Logo } from "@/components/common/logo";
 
 export function Navbar() {

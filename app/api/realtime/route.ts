@@ -1,3 +1,4 @@
+import { env } from "@/lib/env";
 import axios from "axios";
 
 export const runtime = "nodejs";
@@ -12,7 +13,7 @@ export async function GET() {
       const sendNews = async () => {
         try {
           const res = await axios.get(
-            `https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=5&apiKey=${process.env.NEWS_API_KEY}`
+            `https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=5&apiKey=${env.NEWS_API_KEY}`
           );
 
           const articles = res.data.articles;

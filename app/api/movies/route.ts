@@ -1,9 +1,10 @@
+import { env } from "@/lib/env";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const res = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}`,
+      `https://api.themoviedb.org/3/movie/popular?api_key=${env.TMDB_API_KEY}`,
       { cache: "no-store" }
     );
     if (!res.ok) {

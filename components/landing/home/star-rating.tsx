@@ -10,6 +10,7 @@ export function StarRating() {
         .map((_, i) => (
           <motion.svg
             key={i}
+            data-testid="star"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"

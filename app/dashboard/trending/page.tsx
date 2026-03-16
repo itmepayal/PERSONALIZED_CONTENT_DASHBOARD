@@ -11,15 +11,14 @@ import {
 import { PageTitle } from "@/components/dashboard/common/page-title";
 import { ContentGrid } from "@/components/dashboard/common/content-grid";
 import { ContentSection } from "@/components/dashboard/common/content-section";
+import { Card, CardDescription } from "@/components/ui/card";
 
 export default function TrendingPage() {
   const dispatch = useAppDispatch();
 
-  // Get trending content and loading states
   const { trendingNews, trendingMovies, loadingNews, loadingMovies, error } =
     useAppSelector((state) => state.content);
 
-  // Fetch trending content on page load
   useEffect(() => {
     dispatch(fetchTrendingNews());
     dispatch(fetchTrendingMovies());
@@ -30,20 +29,39 @@ export default function TrendingPage() {
       {/* Page title */}
       <PageTitle title="🔥 Trending Today" />
 
-      {/* Error display */}
-      {error && (
-        <p className="text-red-500 text-sm">Failed to load trending content.</p>
+      {/* Trending News */}
+      {trendingNews.length > 0 && (
+        <ContentSection title="📰 Trending News">
+          <ContentGrid items={trendingNews} loading={loadingNews} />
+        </ContentSection>
       )}
 
-      {/* Trending News */}
-      <ContentSection title="📰 Trending News">
-        <ContentGrid items={trendingNews} loading={loadingNews} />
-      </ContentSection>
+      {!loadingNews && trendingNews.length === 0 && (
+        <Card>
+          <CardDescription>
+            <p className="text-muted-foreground text-center py-10 text-lg capitalize">
+              No trending news available right now.
+            </p>
+          </CardDescription>
+        </Card>
+      )}
 
       {/* Trending Movies */}
-      <ContentSection title="🎬 Trending Movies">
-        <ContentGrid items={trendingMovies} loading={loadingMovies} />
-      </ContentSection>
+      {trendingMovies.length > 0 && (
+        <ContentSection title="🎬 Trending Movies">
+          <ContentGrid items={trendingMovies} loading={loadingMovies} />
+        </ContentSection>
+      )}
+
+      {!loadingMovies && trendingMovies.length === 0 && (
+        <Card>
+          <CardDescription>
+            <p className="text-muted-foreground text-center py-10 text-lg capitalize">
+              No trending movies available right now.
+            </p>
+          </CardDescription>
+        </Card>
+      )}
     </div>
   );
 }

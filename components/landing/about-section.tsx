@@ -10,7 +10,7 @@ import {
 } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { Heading } from "@/components/common/header";
-import { AboutCard } from "@/components/landing/about/AboutCard";
+import { AboutCard } from "@/components/landing/about/about-card";
 
 const features = [
   {

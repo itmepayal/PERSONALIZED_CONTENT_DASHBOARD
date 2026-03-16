@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { StarRating } from "@/components/landing/home/StarRating";
-import { AvatarGroup } from "@/components/landing/home/AvatarGroup";
-import { Navbar } from "@/components/landing/home/Navbar";
-import { BrandLogos } from "@/components/landing/home/BrandLogos";
+import { StarRating } from "@/components/landing/home/star-rating";
+import { AvatarGroup } from "@/components/landing/home/avatar-group";
+import { Navbar } from "@/components/landing/home/navbar";
+import { BrandLogos } from "@/components/landing/home/brand-logos";
 
 export const HomeSection = () => {
   return (

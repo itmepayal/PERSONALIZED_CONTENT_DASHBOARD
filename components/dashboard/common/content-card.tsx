@@ -43,8 +43,6 @@ export function ContentCard({ item }: Props) {
       ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
       : "/images/placeholder.png");
 
-  console.log(image);
-
   const toggleFavorite = () => {
     if (isFavorited) {
       dispatch(removeFavorite(item.id));

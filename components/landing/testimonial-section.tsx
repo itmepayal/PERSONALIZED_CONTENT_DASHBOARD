@@ -1,5 +1,5 @@
 import { Heading } from "../common/header";
-import { TestimonialCard } from "./testimonial/TestimonialCard";
+import { TestimonialCard } from "./testimonial/testimonial-card";
 
 export const TestimonialSection = () => {
   const testimonials = [

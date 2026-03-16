@@ -1,7 +1,7 @@
 "use client";
 
 import { Heading } from "../common/header";
-import { PricingCard } from "@/components/landing/price/PricingCard";
+import { PricingCard } from "@/components/landing/price/pricing-card";
 import { motion } from "framer-motion";
 
 export const PricingSection = () => {

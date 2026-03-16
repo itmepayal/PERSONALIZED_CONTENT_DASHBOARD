@@ -1,6 +1,6 @@
 "use client";
 
-import { SocialIcons } from "./SocialIcons";
+import { SocialIcons } from "./social-Icons";
 import { motion } from "framer-motion";
 
 export const FooterBottom = () => {

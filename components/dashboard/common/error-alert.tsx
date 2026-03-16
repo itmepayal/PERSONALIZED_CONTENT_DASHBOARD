@@ -15,11 +15,14 @@ export function ErrorAlert({ message }: Props) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.25 }}
+      role="alert"
     >
       <Card className="border-red-300">
-        <CardDescription className="flex items-center justify-center gap-2 text-red-500 text-sm py-4">
-          <AlertCircle className="w-4 h-4" />
-          {message}
+        <CardDescription>
+          <p className="flex items-center justify-center gap-2 text-lg text-center py-10 text-red-500/80 capitalize">
+            <AlertCircle className="w-4 h-4" />
+            {message}
+          </p>
         </CardDescription>
       </Card>
     </motion.div>

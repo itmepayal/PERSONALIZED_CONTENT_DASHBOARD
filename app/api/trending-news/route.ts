@@ -1,9 +1,10 @@
+import { env } from "@/lib/env";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=${process.env.NEWS_API_KEY}`,
+      `https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=${env.NEWS_API_KEY}`,
       { cache: "no-store" }
     );
 

@@ -11,7 +11,6 @@ export const FooterNewsletter = () => {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
-      {/* Newsletter Text */}
       <motion.p
         className="text-white/70 text-sm sm:text-base"
         initial={{ opacity: 0, x: -10 }}
@@ -21,7 +20,6 @@ export const FooterNewsletter = () => {
         Join our newsletter for regular updates.
       </motion.p>
 
-      {/* Input + Button */}
       <motion.div
         className="mt-4 flex flex-col sm:flex-row gap-3"
         initial="hidden"

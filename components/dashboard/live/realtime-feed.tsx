@@ -7,6 +7,7 @@ import { addRealtimeNews } from "@/features/content/contentSlice";
 import { PageTitle } from "@/components/dashboard/common/page-title";
 import { ContentGrid } from "@/components/dashboard/common/content-grid";
 import { ContentSection } from "@/components/dashboard/common/content-section";
+import { Card, CardDescription } from "@/components/ui/card";
 
 export default function RealtimeFeed() {
   const [currentNews, setCurrentNews] = useState<any[]>([]);
@@ -68,9 +69,13 @@ export default function RealtimeFeed() {
 
       {/* Empty state */}
       {!loading && currentNews.length === 0 && (
-        <p className="text-muted-foreground">
-          No live news available right now.
-        </p>
+        <Card>
+          <CardDescription>
+            <p className="text-muted-foreground text-center py-10 text-lg capitalize">
+              No live news available right now.
+            </p>
+          </CardDescription>
+        </Card>
       )}
 
       {/* Live News Section */}

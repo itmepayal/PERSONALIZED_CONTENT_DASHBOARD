@@ -1,4 +1,4 @@
-// app/api/news/route.ts
+import { env } from "@/lib/env";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category") || "technology";
     const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&page=1&pageSize=10&apiKey=${process.env.NEWS_API_KEY}`,
+      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&page=1&pageSize=10&apiKey=${env.NEWS_API_KEY}`,
       { cache: "no-store" }
     );
     if (!res.ok) {

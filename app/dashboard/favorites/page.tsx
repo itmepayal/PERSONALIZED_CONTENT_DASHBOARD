@@ -7,21 +7,18 @@ import { useAppSelector } from "@/store/hooks";
 import { PageTitle } from "@/components/dashboard/common/page-title";
 import { ContentGrid } from "@/components/dashboard/common/content-grid";
 import { ContentSection } from "@/components/dashboard/common/content-section";
+import { Card, CardDescription } from "@/components/ui/card";
 
 export default function FavoritesPage() {
-  // Get favorites from Redux store
   const favorites = useAppSelector((state) => state.content.favorites);
 
-  // Local loading state for skeleton animation
   const [loading, setLoading] = useState(true);
 
-  // Fake loading delay for UI skeleton
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Separate favorites into news and movies
   const favoriteNews = favorites.filter((item) => item.url);
   const favoriteMovies = favorites.filter((item) => item.poster_path);
 
@@ -32,24 +29,36 @@ export default function FavoritesPage() {
 
       {/* Empty state */}
       {!loading && favorites.length === 0 && (
-        <p className="text-muted-foreground">
-          You haven't added any favorites yet.
-        </p>
+        <Card>
+          <CardDescription>
+            <p className="text-muted-foreground text-center py-10 text-lg capitalize">
+              You haven't added any favorites yet.
+            </p>
+          </CardDescription>
+        </Card>
       )}
 
       {/* Favorite News */}
-      <ContentSection title="📰 Favorite News">
-        <ContentGrid items={favoriteNews} loading={loading} skeletonCount={4} />
-      </ContentSection>
+      {favoriteNews.length > 0 && (
+        <ContentSection title="📰 Favorite News">
+          <ContentGrid
+            items={favoriteNews}
+            loading={loading}
+            skeletonCount={4}
+          />
+        </ContentSection>
+      )}
 
       {/* Favorite Movies */}
-      <ContentSection title="🎬 Favorite Movies">
-        <ContentGrid
-          items={favoriteMovies}
-          loading={loading}
-          skeletonCount={4}
-        />
-      </ContentSection>
+      {favoriteMovies.length > 0 && (
+        <ContentSection title="🎬 Favorite Movies">
+          <ContentGrid
+            items={favoriteMovies}
+            loading={loading}
+            skeletonCount={4}
+          />
+        </ContentSection>
+      )}
     </div>
   );
 }

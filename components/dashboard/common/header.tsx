@@ -14,9 +14,6 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ onSearch }: DashboardHeaderProps) {
   const [search, setSearch] = useState("");
 
-  /**
-   * Debounced search
-   */
   const debouncedSearch = useMemo(
     () =>
       debounce((value: string) => {
