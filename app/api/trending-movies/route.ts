@@ -7,10 +7,14 @@ export async function GET(req: NextRequest) {
       { cache: "no-store" }
     );
 
-    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`TMDB API error: ${res.status}`);
+    }
 
+    const data = await res.json();
     return NextResponse.json(data);
   } catch (err) {
+    console.error("Trending Movies API error:", err);
     return NextResponse.json(
       { error: "Failed to fetch trending movies" },
       { status: 500 }

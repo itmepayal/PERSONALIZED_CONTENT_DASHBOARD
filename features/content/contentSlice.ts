@@ -47,20 +47,26 @@ const loadFavorites = (): ContentItem[] => {
 
 const saveFavorites = (favorites: ContentItem[]) => {
   if (typeof window !== "undefined") {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    try {
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    } catch (error) {
+      console.error("Failed to save favorites:", error);
+    }
   }
 };
 
 // --------------------
 // Normalize Content
 // --------------------
-const normalizeContentItem = (item: any): ContentItem => ({
-  ...item,
-  id:
-    item.id ??
-    item.url ??
-    `${item.source?.name}-${item.title}-${item.publishedAt}`,
-});
+const normalizeContentItem = (item: any): ContentItem => {
+  return {
+    ...item,
+    id:
+      item.id ??
+      item.url ??
+      `${item.source?.name}-${item.title}-${item.publishedAt}`,
+  };
+};
 
 // --------------------
 // Initial State
@@ -95,7 +101,7 @@ export const fetchNews = createAsyncThunk(
     const cate = JSON.parse(localStorage.getItem("preferences") || "{}");
     const category = cate?.categories?.[0] || "technology";
 
-    const res = await axios.get(`/api/news?category=${category}`);
+    const res = await axios.get(`/api/news?category=${category}&page=${page}`);
 
     return res.data.articles.map(normalizeContentItem) as ContentItem[];
   }
@@ -105,8 +111,8 @@ export const fetchNews = createAsyncThunk(
 export const fetchMovies = createAsyncThunk(
   "content/fetchMovies",
   async (_, { getState }) => {
-    const state = getState() as { content: any };
-    const page = state.content.moviesPage || 1;
+    const state = getState() as { content: ContentState };
+    const page = state.content.moviesPage;
     const res = await axios.get(`/api/movies?page=${page}`);
     return res.data.results.map(normalizeContentItem) as ContentItem[];
   }
@@ -115,8 +121,8 @@ export const fetchMovies = createAsyncThunk(
 // TRENDING NEWS
 export const fetchTrendingNews = createAsyncThunk(
   "content/fetchTrendingNews",
-  async (category: string = "technology") => {
-    const res = await axios.get(`/api/news?category=${category}`);
+  async () => {
+    const res = await axios.get("/api/trending-news");
     return res.data.articles.map(normalizeContentItem) as ContentItem[];
   }
 );
@@ -125,7 +131,7 @@ export const fetchTrendingNews = createAsyncThunk(
 export const fetchTrendingMovies = createAsyncThunk(
   "content/fetchTrendingMovies",
   async () => {
-    const res = await axios.get("/api/trending-movies");
+    const res = await axios.get(`/api/trending-movies`);
     return res.data.results.map(normalizeContentItem) as ContentItem[];
   }
 );
@@ -162,14 +168,11 @@ const contentSlice = createSlice({
       state.error = null;
     },
 
-    // REALTIME NEWS (SSE)
+    // REALTIME NEWS
     addRealtimeNews(state, action: PayloadAction<ContentItem>) {
-      const exists = state.news.find(
-        (item) => String(item.id) === String(action.payload.id)
-      );
-
-      if (!exists) {
+      if (!state.news.find((n) => String(n.id) === String(action.payload.id))) {
         state.news.unshift(action.payload);
+        state.trendingNews.unshift(action.payload);
       }
     },
   },
@@ -207,10 +210,12 @@ const contentSlice = createSlice({
         state.error = action.error.message || "Error fetching movies";
       })
 
-      // TRENDING
+      // TRENDING NEWS
       .addCase(fetchTrendingNews.fulfilled, (state, action) => {
         state.trendingNews = action.payload;
       })
+
+      // TRENDING MOVIES
       .addCase(fetchTrendingMovies.fulfilled, (state, action) => {
         state.trendingMovies = action.payload;
       });
