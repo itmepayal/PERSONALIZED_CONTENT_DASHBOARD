@@ -12,7 +12,7 @@ export async function GET() {
       const sendNews = async () => {
         try {
           const res = await axios.get(
-            `https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=5&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`
+            `https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=5&apiKey=${process.env.NEWS_API_KEY}`
           );
 
           const articles = res.data.articles;

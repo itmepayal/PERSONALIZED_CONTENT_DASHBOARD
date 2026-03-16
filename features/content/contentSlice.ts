@@ -95,9 +95,7 @@ export const fetchNews = createAsyncThunk(
     const cate = JSON.parse(localStorage.getItem("preferences") || "{}");
     const category = cate?.categories?.[0] || "technology";
 
-    const res = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&page=${page}&pageSize=10&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`
-    );
+    const res = await axios.get(`/api/news?category=${category}`);
 
     return res.data.articles.map(normalizeContentItem) as ContentItem[];
   }
@@ -107,13 +105,9 @@ export const fetchNews = createAsyncThunk(
 export const fetchMovies = createAsyncThunk(
   "content/fetchMovies",
   async (_, { getState }) => {
-    const state = getState() as { content: ContentState };
-    const page = state.content.moviesPage;
-
-    const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB}&page=${page}`
-    );
-
+    const state = getState() as { content: any };
+    const page = state.content.moviesPage || 1;
+    const res = await axios.get(`/api/movies?page=${page}`);
     return res.data.results.map(normalizeContentItem) as ContentItem[];
   }
 );
@@ -121,11 +115,8 @@ export const fetchMovies = createAsyncThunk(
 // TRENDING NEWS
 export const fetchTrendingNews = createAsyncThunk(
   "content/fetchTrendingNews",
-  async () => {
-    const res = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`
-    );
-
+  async (category: string = "technology") => {
+    const res = await axios.get(`/api/news?category=${category}`);
     return res.data.articles.map(normalizeContentItem) as ContentItem[];
   }
 );
@@ -134,10 +125,7 @@ export const fetchTrendingNews = createAsyncThunk(
 export const fetchTrendingMovies = createAsyncThunk(
   "content/fetchTrendingMovies",
   async () => {
-    const res = await axios.get(
-      `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_TMDB}`
-    );
-
+    const res = await axios.get("/api/trending-movies");
     return res.data.results.map(normalizeContentItem) as ContentItem[];
   }
 );
