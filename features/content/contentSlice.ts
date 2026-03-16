@@ -58,7 +58,7 @@ const saveFavorites = (favorites: ContentItem[]) => {
 // --------------------
 // Normalize Content
 // --------------------
-const normalizeContentItem = (item: any): ContentItem => {
+export const normalizeContentItem = (item: any): ContentItem => {
   return {
     ...item,
     id:

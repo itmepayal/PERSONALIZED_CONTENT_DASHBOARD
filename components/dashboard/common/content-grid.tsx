@@ -41,6 +41,7 @@ export function ContentGrid({ items, loading, skeletonCount = 8 }: Props) {
             <Reorder.Item
               key={`${item.id}-${index}`}
               value={item}
+              data-testid="content-card"
               whileDrag={{
                 scale: 1.05,
                 zIndex: 10,

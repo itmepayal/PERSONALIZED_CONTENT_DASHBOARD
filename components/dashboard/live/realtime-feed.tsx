@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/store/hooks";
-import { addRealtimeNews } from "@/features/content/contentSlice";
+import {
+  addRealtimeNews,
+  normalizeContentItem,
+} from "@/features/content/contentSlice";
 
 import { PageTitle } from "@/components/dashboard/common/page-title";
 import { ContentGrid } from "@/components/dashboard/common/content-grid";
@@ -36,17 +39,7 @@ export default function RealtimeFeed() {
         setLoading(false);
 
         articles.forEach((data: any) => {
-          dispatch(
-            addRealtimeNews({
-              id: data.url ?? `${data.title}-${data.publishedAt}`,
-              title: data.title,
-              description: data.description,
-              url: data.url,
-              urlToImage: data.urlToImage,
-              source: data.source,
-              publishedAt: data.publishedAt,
-            })
-          );
+          dispatch(addRealtimeNews(normalizeContentItem(data)));
         });
       } catch (err) {
         console.error("Invalid SSE data", err);
@@ -79,9 +72,15 @@ export default function RealtimeFeed() {
         </Card>
       )}
 
-      <ContentSection title="📰 Latest Live News">
-        <ContentGrid items={currentNews} loading={loading} skeletonCount={4} />
-      </ContentSection>
+      {currentNews.length > 0 && (
+        <ContentSection title="📰 Latest Live News">
+          <ContentGrid
+            items={currentNews}
+            loading={loading}
+            skeletonCount={4}
+          />
+        </ContentSection>
+      )}
     </div>
   );
 }
